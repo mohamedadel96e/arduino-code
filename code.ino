@@ -3,11 +3,9 @@
 int off = 1;
 SoftwareSerial Bluetooth(10,11);
 int pwm;
-#define motor 5 
-float revolutions=0.0;
+#define motor 5
 volatile int rpmCount = 0; 
-unsigned long previousMillis = 0;
-const int sampleInterval = 1000; 
+unsigned long previousMillis = 0; 
 
 
 
@@ -22,18 +20,10 @@ void setup() {
   pinMode(hallSensorPin, INPUT); 
   attachInterrupt(digitalPinToInterrupt(hallSensorPin), rpmCounter, RISING);
     
-
-
 }
-
-
 
 void loop() {
 
-
-
-         
- 
   unsigned long currentMillis = millis();
 
 
@@ -58,9 +48,9 @@ void loop() {
 
       }
       
-  if (currentMillis - previousMillis >= sampleInterval) {
+  if (currentMillis - previousMillis >= 1000) {
     
-    float rpm = (rpmCount / 1.0) / (sampleInterval / 60000.0);  
+    float rpm = (rpmCount * 60.0);  
     
     
     Bluetooth.print(rpm);
